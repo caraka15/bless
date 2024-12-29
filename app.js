@@ -1,4 +1,4 @@
-// bot.js
+
 const axios = require('axios');
 const fs = require('fs').promises;
 const chalk = require('chalk');
@@ -6,12 +6,10 @@ const chalk = require('chalk');
 let config;
 const API_BASE_URL = "https://gateway-run.bls.dev/api/v1";
 
-// Fungsi untuk format timestamp
 function getTimestamp() {
     return chalk.gray(`[${new Date().toLocaleTimeString()}]`);
 }
 
-// Fungsi logging
 function logInfo(message) {
     console.log(`${getTimestamp()} ${chalk.blue('ℹ')} ${message}`);
 }
@@ -37,7 +35,6 @@ function formatReward(reward) {
     return chalk.yellow(`${reward.toFixed(2)}`);
 }
 
-// Format time function
 function formatTime(seconds) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
@@ -45,7 +42,6 @@ function formatTime(seconds) {
     return `${hours}h ${minutes}m ${secs}s`;
 }
 
-// Fungsi untuk membaca config
 async function loadConfig() {
     try {
         const data = await fs.readFile('config.json', 'utf8');
@@ -83,7 +79,6 @@ async function checkNodeStatus() {
     return data;
 }
 
-// Fungsi mendaftarkan node
 async function registerNode() {
     const registerUrl = `${API_BASE_URL}/nodes/${config.nodeId}`;
     logInfo(`Registering node ${chalk.cyan(config.nodeId.substring(0, 16))}...`);
@@ -103,7 +98,6 @@ async function registerNode() {
     return response.data;
 }
 
-// Fungsi memulai sesi
 async function startSession() {
     const startSessionUrl = `${API_BASE_URL}/nodes/${config.nodeId}/start-session`;
     logInfo(`Starting new session...`);
@@ -123,7 +117,6 @@ async function startSession() {
     return response.data;
 }
 
-// Fungsi ping node
 async function pingNode() {
     const pingUrl = `${API_BASE_URL}/nodes/${config.nodeId}/ping`;
 
@@ -142,7 +135,6 @@ async function pingNode() {
     return response.data;
 }
 
-// Header tampilan
 function displayHeader() {
     console.clear();
     const customAsciiArt = chalk.cyan(`
@@ -171,7 +163,6 @@ let stats = {
     todayReward: 0
 };
 
-// Fungsi untuk menampilkan stats
 function displayStats() {
     const uptime = Math.floor((new Date() - stats.startTime) / 1000);
 
