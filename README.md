@@ -19,7 +19,7 @@ This script automates network or node operations for Bless Network Bot.
 
 2. Navigate to the project directory:
    ```bash
-   cd Bless-Bot
+   cd bless
    ```
 
 3. Install the necessary dependencies:
