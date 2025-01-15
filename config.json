@@ -1,6 +1,6 @@
 {
-    "nodeId": "12D3KooWxxxxx",
-    "hardwareId": "69dbea399d1xxxx",
-    "authToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6Ikxxxx",
-    "version": "0.1.7"
+  "nodeId": "your_node_id",
+  "hardwareId": "your_hardware_id",
+  "authToken": "your_auth_token",
+  "version": "0.1.7"
 }

@@ -189,6 +189,7 @@ function displayStats() {
 }
 
 // Fungsi utama
+// Modifikasi bagian error handling di fungsi runAll()
 async function runAll() {
     try {
         displayHeader();
@@ -217,7 +218,13 @@ async function runAll() {
                 stats.totalPings++;
                 stats.successfulPings++;
             } catch (error) {
-                logError(`Ping failed: ${error.message}`);
+                if (error.response?.status === 403 && error.response?.data?.includes('Cloudflare')) {
+                    logError(`IP ADDRESS TERBLOKIR OLEH CLOUDFLARE`);
+                    logError(`Ray ID: ${error.response?.data?.match(/Ray ID: (.*?)</)?.[1] || 'Unknown'}`);
+                    logError(`Solusi: Gunakan VPN atau tunggu 24 jam`);
+                } else {
+                    logError(`Ping failed: ${error.message}`);
+                }
                 stats.totalPings++;
                 stats.failedPings++;
             }
@@ -231,7 +238,13 @@ async function runAll() {
                 stats.totalReward = status.totalReward;
                 displayStats();
             } catch (error) {
-                logError(`Status check failed: ${error.message}`);
+                if (error.response?.status === 403 && error.response?.data?.includes('Cloudflare')) {
+                    logError(`IP ADDRESS TERBLOKIR OLEH CLOUDFLARE`);
+                    logError(`Ray ID: ${error.response?.data?.match(/Ray ID: (.*?)</)?.[1] || 'Unknown'}`);
+                    logError(`Solusi: Gunakan VPN atau tunggu 24 jam`);
+                } else {
+                    logError(`Status check failed: ${error.message}`);
+                }
             }
         }, 120000);
 
@@ -242,12 +255,24 @@ async function runAll() {
                 stats.sessionRefreshes++;
                 logSuccess(`Session refreshed successfully`);
             } catch (error) {
-                logError(`Session refresh failed: ${error.message}`);
+                if (error.response?.status === 403 && error.response?.data?.includes('Cloudflare')) {
+                    logError(`IP ADDRESS TERBLOKIR OLEH CLOUDFLARE`);
+                    logError(`Ray ID: ${error.response?.data?.match(/Ray ID: (.*?)</)?.[1] || 'Unknown'}`);
+                    logError(`Solusi: Gunakan VPN atau tunggu 24 jam`);
+                } else {
+                    logError(`Session refresh failed: ${error.message}`);
+                }
             }
         }, 300000);
 
     } catch (error) {
-        logError(`Critical error: ${error.message}`);
+        if (error.response?.status === 403 && error.response?.data?.includes('Cloudflare')) {
+            logError(`IP ADDRESS TERBLOKIR OLEH CLOUDFLARE`);
+            logError(`Ray ID: ${error.response?.data?.match(/Ray ID: (.*?)</)?.[1] || 'Unknown'}`);
+            logError(`Solusi: Gunakan VPN atau tunggu 24 jam`);
+        } else {
+            logError(`Critical error: ${error.message}`);
+        }
         logWarning(`Restarting bot in 5 seconds...`);
         setTimeout(() => runAll(), 5000);
     }
