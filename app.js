@@ -3,6 +3,11 @@ const axios = require('axios');
 const fs = require('fs').promises;
 const chalk = require('chalk');
 
+const PING_INTERVAL = 5 * 60 * 1000;        // 5 minutes
+const STATUS_INTERVAL = 30 * 60 * 1000;     // 30 minutes
+const SESSION_INTERVAL = 30 * 60 * 1000;    // 30 minutes
+const RESTART_DELAY = 5 * 1000;             // 5 seconds
+
 let config;
 const API_BASE_URL = "https://gateway-run.bls.dev/api/v1";
 
@@ -262,7 +267,7 @@ async function runAll() {
                 stats.totalPings++;
                 stats.failedPings++;
             }
-        }, 60000);
+        }, PING_INTERVAL);
 
         // Set interval untuk status check setiap 2 menit
         setInterval(async () => {
@@ -276,7 +281,7 @@ async function runAll() {
                     logError(`Status check failed: ${error.message}`);
                 }
             }
-        }, 120000);
+        }, STATUS_INTERVAL);
 
         // Set interval untuk session refresh setiap 5 menit
         setInterval(async () => {
@@ -289,14 +294,14 @@ async function runAll() {
                     logError(`Session refresh failed: ${error.message}`);
                 }
             }
-        }, 300000);
+        }, SESSION_INTERVAL);
 
     } catch (error) {
         if (!handleCloudflareError(error)) {
             logError(`Critical error: ${error.message}`);
         }
         logWarning(`Restarting bot in 5 seconds...`);
-        setTimeout(() => runAll(), 5000);
+        setTimeout(() => runAll(), RESTART_DELAY);
     }
 }
 
