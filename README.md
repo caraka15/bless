@@ -19,7 +19,7 @@ This script automates network or node operations for Bless Network Bot.
 
 2. Navigate to the project directory:
    ```bash
-   cd Bless-Bot
+   cd bless
    ```
 
 3. Install the necessary dependencies:
@@ -50,6 +50,18 @@ This script automates network or node operations for Bless Network Bot.
      localStorage.getItem('B7S_AUTH_TOKEN')
      ```
       if error, run "allow pasting" and enter
+     ![Screenshot 2024-12-29 203405](https://github.com/user-attachments/assets/66cf21d5-0b75-4197-a6e3-8cfcc6c18d1e)
+
+   To get your token, follow this step:
+	- Download the [extension](https://chromewebstore.google.com/detail/bless/pljbjcehnhcnofmkdbjolghdcjnmekia)
+	- after you download the extension, open `chrome://extensions/?id=pljbjcehnhcnofmkdbjolghdcjnmekia`
+  - Enable `Developer mode` in top right, then press `service worker`. You will see new tab open.
+    ![image](https://github.com/user-attachments/assets/63151405-cd49-4dff-9eec-a787a9aa3144)
+
+	- Go to `network` tab, then open the `Bless extension` and login to your account.
+  - After you login to your account, search name with your pubkey (example : `12D3xxxx`), open and copy the `pubkey` and `hardwareid`
+![image](https://github.com/user-attachments/assets/70bcb0c6-9c47-4c81-9bf4-a55ab912fba6)
+
 
 3. Run using screen:
    ```bash
